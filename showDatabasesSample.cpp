@@ -165,7 +165,7 @@ int main(const int argc, const char* argv[]) {
         }
     }
 
-    char queryBuffer[100];
+    char queryBuffer[500];
     strcpy(queryBuffer, query_s.c_str());
 
 
