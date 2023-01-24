@@ -52,7 +52,7 @@ int main(const int argc, const char* argv[]) {
 // Hardcoding password here
 //
 
-  const char* USERID   = "db356test1";                      // Your UserID here
+  const char* USERID   = "h66zhang";                      // Your UserID here
   const char* SERVER   = "marmoset02.shoshin.uwaterloo.ca";
   const char* DBNAME   = "";                                // Can specify a database; don't want to
   const char* QUERY    = "select schema_name from information_schema.schemata order by schema_name";
