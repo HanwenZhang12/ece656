@@ -47,158 +47,178 @@ using namespace std;
 
 int main(const int argc, const char* argv[]) {
 
-// Defined parameters
-// Recommend use of -p option instead of
-// Hardcoding password here
-//
+    // Defined parameters
+    // Recommend use of -p option instead of
+    // Hardcoding password here
+    //
 
-  const char* USERID   = "h66zhang";                      // Your UserID here
-  const char* SERVER   = "marmoset02.shoshin.uwaterloo.ca";
-  const char* DBNAME   = "";                                // Can specify a database; don't want to
-  const char* QUERY    = "select schema_name from information_schema.schemata order by schema_name";
-  
-  MYSQL  mysql;                                             // Space for handler
-  MYSQL* pMysql = &mysql;                                   // Pointer to handler
-  
-  const int bufLen = 256;
+    const char* USERID = "h66zhang";                      // Your UserID here
+    const char* SERVER = "marmoset02.shoshin.uwaterloo.ca";
+    const char* DBNAME = "";                                // Can specify a database; don't want to
+    const char* QUERY = "select schema_name from information_schema.schemata order by schema_name";
 
-  MYSQL_RES* pQueryResult;                                  // Pointer to query result handler
-  MYSQL_ROW  row;                                           // Space for result row
-  int numFields;                                            // Number of fields in query
+    MYSQL  mysql;                                             // Space for handler
+    MYSQL* pMysql = &mysql;                                   // Pointer to handler
 
-  // Check the command-line arguments first
-  // Either 1 or 3:
-  // 1 for all databases accessible to the account to be listed
-  // 3 for a pattern match (either -l: database names must match the pattern
-  //                            or -n: database names must NOT match the pattern
-  // The pattern is in argv[2] if argc = 3
-  
-  if (argc != 1 && argc != 3) {
-    cerr << argv[0] << ": Usage: " << argv[0] << " [-l/n pattern]" << endl;
-    return -1;
-  }
-  if (argc == 3 &&
-      ((strncmp("-n", argv[1], 2) != 0 ) &&
-       (strncmp("-l", argv[1], 2) != 0 ))) {
-    cerr << argv[0] << ": Usage: " << argv[0] << " [-l/n pattern]" << endl << "argv[1]: '" << argv[1] << "'" << endl;
-    return -1;
-  }
+    const int bufLen = 256;
 
-  // Validate argv[2] as containing only alphanumeric characters and %
-  // We will be lazy and just do an ASCII check; NLS support should be better.
-  // In particular, we want to prevent any SQL injection attacks
-  if (argc == 3) {
-    const char* pattern = argv[2];
-    while (*pattern) {
-      if (!( (*pattern >= 'A' && *pattern <= 'Z') ||
-	     (*pattern >= 'a' && *pattern <= 'z') ||
-	     (*pattern >= '0' && *pattern <= '9') ||
-	     (*pattern == '%'))) {
-	cerr << argv[0] << ": Usage Error: pattern must be of the form: '[A-Za-z0-9%]+'" << endl;
-	return -1;
-      }
-      ++pattern;
+    MYSQL_RES* pQueryResult;                                  // Pointer to query result handler
+    MYSQL_ROW  row;                                           // Space for result row
+    int numFields;                                            // Number of fields in query
+
+    // Check the command-line arguments first
+    // Either 1 or 3:
+    // 1 for all databases accessible to the account to be listed
+    // 3 for a pattern match (either -l: database names must match the pattern
+    //                            or -n: database names must NOT match the pattern
+    // The pattern is in argv[2] if argc = 3
+
+    if (argc != 3 && argc != 5) {
+        cerr << argv[0] << ": Input Error." << endl;
+        return -1;
     }
-  }
+    if (argc == 5 &&
+        ((strncmp("-n", argv[3], 2) != 0) &&
+            (strncmp("-l", argv[3], 2) != 0))) {
+        cerr << argv[0] << ": Input Error." << endl;
+        return -1;
+    }
 
-  // Attempt DB connection
-  // Get a handler first
 
-  // Handy debugging statement to ensure I connected to the database
+    // Validate argv[2] as containing only alphanumeric characters and %
+    // We will be lazy and just do an ASCII check; NLS support should be better.
+    // In particular, we want to prevent any SQL injection attacks
+    if (argc == 5) {
+        const char* pattern = argv[4];
+        while (*pattern) {
+            if (!((*pattern >= 'A' && *pattern <= 'Z') ||
+                (*pattern >= 'a' && *pattern <= 'z') ||
+                (*pattern >= '0' && *pattern <= '9') ||
+                (*pattern == '%'))) {
+                cerr << argv[0] << ": Usage Error: pattern must be of the form: '[A-Za-z0-9%]+'" << endl;
+                return -1;
+            }
+            ++pattern;
+        }
+    }
+
+    // Attempt DB connection
+    // Get a handler first
+
+    // Handy debugging statement to ensure I connected to the database
 #ifdef DEBUG
-  cout << "Attempting to connect to database '" << DBNAME
-       << "' on server " << SERVER
-       << " with MySQL userid " << USERID << endl;
+    cout << "Attempting to connect to database '" << DBNAME
+        << "' on server " << SERVER
+        << " with MySQL userid " << USERID << endl;
 #endif
-  
-  if (!mysql_init(pMysql)) {
-    cerr << ": mysql_init() error: insufficient memory" << endl;
-    return -1*ENOMEM;
-  }
-  
-  // Prompt for a password and connect (use default port 3306)
-  const char* passwd = getpass("Password: ");
-  if (!mysql_real_connect(pMysql,
-			  SERVER,
-			  USERID,
-			  passwd,
-			  DBNAME,
-			  0,                                // Use default port (3306)
-			  NULL,                             // Not using unix socket or named pipe
-			  0)) {                             // No client flags
-    cerr << ": mysql_real_connect() error: " << mysql_error(pMysql) << endl;
-    return -1;
-  }
 
-  // Now we need to do the query.  The specific query depends on the options or
-  // lack of options.
+    if (!mysql_init(pMysql)) {
+        cerr << ": mysql_init() error: insufficient memory" << endl;
+        return -1 * ENOMEM;
+    }
 
-  const char* baseQuery = "select schema_name from information_schema.schemata";
-  const char* orderingClause = " order by schema_name;";
+    // Prompt for a password and connect (use default port 3306)
+    const char* passwd = getpass("Password: ");
+    if (!mysql_real_connect(pMysql,
+        SERVER,
+        USERID,
+        passwd,
+        DBNAME,
+        0,                                // Use default port (3306)
+        NULL,                             // Not using unix socket or named pipe
+        0)) {                             // No client flags
+        cerr << ": mysql_real_connect() error: " << mysql_error(pMysql) << endl;
+        return -1;
+    }
 
-  // THE queryLen WILL NEED TO BE DIFFERENT THAN THAT SHOWN BELOW
-  int queryLen = strlen(baseQuery) +
-                 strlen(orderingClause) +
-    1;                        // Needed for null terminator 
-  
-  // Allocate the query buffer
-  char queryBuffer[queryLen];
+    // Now we need to do the query.  The specific query depends on the options or
+    // lack of options.
 
-  // Copy the query into the query buffer
-  strcpy(queryBuffer, baseQuery);
 
-  // YOUR CODE HERE TO DEAL WITH THE -l AND -n CASES
-  
-  strcpy(queryBuffer + strlen(queryBuffer), orderingClause);
+    //const char* baseQuery = "select table_name, table_type from information_schema.tables where table_schema = '" + database + "'";
+    //const char* orderingClause = " order by table_name;";
 
-  // Handy debugging statement to ensure I have a good query
-#ifdef DEBUG
-  cout << "Query is: " << queryBuffer << endl
-       << "with length: " << strlen(queryBuffer) << " and queryLen = " << queryLen << endl;
-#endif
-  
-  // Run the query
-  int rc =  mysql_query(pMysql, queryBuffer);
-  if (rc) {
-    cerr << ": mysql_query() error: " << mysql_error(pMysql) << endl
-	 << "rc: " << rc << endl;
-    return -1;
-  }
+    // THE queryLen WILL NEED TO BE DIFFERENT THAN THAT SHOWN BELOW
+    /*int queryLen = strlen(baseQuery) +
+                   strlen(orderingClause) +
+      1;*/                        // Needed for null terminator
 
-  // Fetch the results
-  pQueryResult =  mysql_store_result(pMysql);
-  numFields = mysql_field_count(pMysql);                     // And get the field count
-  if (!pQueryResult) {                                       // We got nothing back; that may be OK
-    cout << "!pQueryResult" << endl;
-    if (numFields == 0) {                                    // We should have nothing back!
-      cerr << argv[0] << ": Information: Query \"" << QUERY << "\" returned zero rows" << endl;
+      // Allocate the query buffer
+
+      // Copy the query into the query buffer
+      //strcpy(queryBuffer, baseQuery);
+
+      // YOUR CODE HERE TO DEAL WITH THE -l AND -n CASES
+    std::string database_name = argv[2];
+    std::string query_s = "select l.table_name, l.column_num, r.table_type from (select table_name, count(*) as column_num from information_schema.columns where table_schema = '" + database_name;
+
+    if (argc == 3) {
+        query_s += "' group by table_name) as l left join information_schema.tables as r on l.table_name = r.table_name;";
     }
     else {
-      cerr << argv[0] << ": Error: Query \"" << QUERY << "\" failed to return expected data" << endl
-	   << argv[0] << ": error information: " << mysql_error(pMysql) << endl;
-       return -1;
+        std::string pattern_s = argv[4];
+        if ((strncmp("-l", argv[3], 2) == 0)) {
+            query_s += "' and table_name like '%" + pattern_s + "%' group by table_name) as l left join information_schema.tables as r on l.table_name = r.table_name;";
+        }
+        else if ((strncmp("-n", argv[3], 2) == 0)) {
+            query_s += "' and table_name not like '%" + pattern_s + "%' group by table_name) as l left join information_schema.tables as r on l.table_name = r.table_name;";
+        }
     }
-  }
-  else {                                                    // Retrieve the rows
-    cout << "Database";
-    if (argc == 3) {
-      if (strncmp("-n", argv[1], 2) == 0)
-	cout << " (^" << argv[2] << ")";
-      else
-	cout << " (" << argv[2] << ")";
-    }
-    cout << endl << "--------------" << endl;
-    while ((row = mysql_fetch_row(pQueryResult))) {
-      unsigned long *lengths;
-      lengths = mysql_fetch_lengths(pQueryResult);
-      for (int i = 0; i < numFields; i++)
-	printf("%.*s ", (int) lengths[i], row[i] ? row[i] : "NULL");
-      printf("\n");
-    }
-    cout << "--------------" << endl;
-  }
-  mysql_free_result(pQueryResult);
-  mysql_close(pMysql);
 
-  return 0;
+    char queryBuffer[100];
+    strcpy(queryBuffer, query_s.c_str());
+
+
+    //strcpy(queryBuffer + strlen(queryBuffer), orderingClause);
+
+    // Handy debugging statement to ensure I have a good query
+#ifdef DEBUG
+    cout << "Query is: " << queryBuffer << endl
+        << "with length: " << strlen(queryBuffer) << " and queryLen = " << queryLen << endl;
+#endif
+
+    // Run the query
+    int rc = mysql_query(pMysql, queryBuffer);
+    if (rc) {
+        cerr << ": mysql_query() error: " << mysql_error(pMysql) << endl
+            << "rc: " << rc << endl;
+        return -1;
+    }
+
+    // Fetch the results
+    pQueryResult = mysql_store_result(pMysql);
+    numFields = mysql_field_count(pMysql);                     // And get the field count
+    if (!pQueryResult) {                                       // We got nothing back; that may be OK
+        cout << "!pQueryResult" << endl;
+        if (numFields == 0) {                                    // We should have nothing back!
+            cerr << argv[0] << ": Information: Query \"" << QUERY << "\" returned zero rows" << endl;
+        }
+        else {
+            cerr << argv[0] << ": Error: Query \"" << QUERY << "\" failed to return expected data" << endl
+                << argv[0] << ": error information: " << mysql_error(pMysql) << endl;
+            return -1;
+        }
+    }
+    else {                                                    // Retrieve the rows
+        cout << "Database";
+        if (argc == 3) {
+            if (strncmp("-n", argv[1], 2) == 0)
+                cout << " (^" << argv[2] << ")";
+            else
+                cout << " (" << argv[2] << ")";
+        }
+        cout << endl << "--------------" << endl;
+        while ((row = mysql_fetch_row(pQueryResult))) {
+            unsigned long* lengths;
+            lengths = mysql_fetch_lengths(pQueryResult);
+            for (int i = 0; i < numFields; i++)
+                printf("%.*s ", (int)lengths[i], row[i] ? row[i] : "NULL");
+            printf("\n");
+        }
+        cout << "--------------" << endl;
+    }
+    mysql_free_result(pQueryResult);
+    mysql_close(pMysql);
+
+    return 0;
 }
