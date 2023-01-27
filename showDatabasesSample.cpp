@@ -209,11 +209,19 @@ int main(const int argc, const char* argv[]) {
                 cout << " (" << argv[2] << ")";
         }
         cout << endl << "--------------------------------------------------" << endl;
-        cout << "Table Name\t\t\t" << "TableType\t\t" << "Num of Cols" <<endl;
+        cout << "Table Name\t\t" << "TableType\t\t" << "Num of Cols" <<endl;
         while ((row = mysql_fetch_row(pQueryResult))) {
             unsigned long* lengths;
             lengths = mysql_fetch_lengths(pQueryResult);
-            printf("%.*s \t\t\t", (int)lengths[0], row[0] ? row[0] : "NULL");
+            if(row[0].length() < 8){
+                printf("%.*s \t\t\t", (int)lengths[0], row[0] ? row[0] : "NULL");
+            }
+            else if(row[0].length() > 16){
+                printf("%.*s \t", (int)lengths[0], row[0] ? row[0] : "NULL");
+            }
+            else{
+                printf("%.*s \t\t\t", (int)lengths[0], row[0] ? row[0] : "NULL");
+            }
             printf("%.*s \t\t", (int)lengths[2], row[2] ? row[2] : "NULL");
             printf("%.*s", (int)lengths[1], row[1] ? row[1] : "NULL");
             printf("\n");
