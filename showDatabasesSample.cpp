@@ -213,10 +213,10 @@ int main(const int argc, const char* argv[]) {
         while ((row = mysql_fetch_row(pQueryResult))) {
             unsigned long* lengths;
             lengths = mysql_fetch_lengths(pQueryResult);
-            if(row[0].length() < 8){
+            if(strlen(row[0]) < 8){
                 printf("%.*s \t\t\t", (int)lengths[0], row[0] ? row[0] : "NULL");
             }
-            else if(row[0].length() > 16){
+            else if(strlen(row[0]) > 16){
                 printf("%.*s \t", (int)lengths[0], row[0] ? row[0] : "NULL");
             }
             else{
