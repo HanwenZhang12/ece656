@@ -200,22 +200,24 @@ int main(const int argc, const char* argv[]) {
         }
     }
     else {                                                    // Retrieve the rows
-        cout << "Database";
-        if (argc == 3) {
+        cout << "Database ";
+        cout << argv[2] << " : ";
+        if (argc == 5) {
             if (strncmp("-n", argv[1], 2) == 0)
                 cout << " (^" << argv[2] << ")";
             else
                 cout << " (" << argv[2] << ")";
         }
-        cout << endl << "--------------" << endl;
+        cout << endl << "--------------------------------------------------" << endl;
+        cout << "Table Name\t\t\t" << "TableType\t\t" << "Num of Cols" <<endl;
         while ((row = mysql_fetch_row(pQueryResult))) {
             unsigned long* lengths;
             lengths = mysql_fetch_lengths(pQueryResult);
             for (int i = 0; i < numFields; i++)
-                printf("%.*s ", (int)lengths[i], row[i] ? row[i] : "NULL");
+                printf("%.*s \t #", (int)lengths[i], row[i] ? row[i] : "NULL");
             printf("\n");
         }
-        cout << "--------------" << endl;
+        cout << "--------------------------------------------------" << endl;
     }
     mysql_free_result(pQueryResult);
     mysql_close(pMysql);
