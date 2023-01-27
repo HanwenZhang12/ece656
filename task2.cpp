@@ -188,7 +188,7 @@ int main(const int argc, const char* argv[]) {
     // Fetch the results
     pQueryResult = mysql_store_result(pMysql);
     numFields = mysql_field_count(pMysql);                     // And get the field count
-    if (pQueryResult == NULL) {                                       // We got nothing back; that may be OK
+    if (NULL == pQueryResult) {                                       // We got nothing back; that may be OK
         cout << "!pQueryResult" << endl;
         if (numFields == 0) {                                    // We should have nothing back!
             cerr << argv[0] << ": Information: Query \"" << QUERY << "\" returned zero rows" << endl;
