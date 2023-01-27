@@ -188,7 +188,7 @@ int main(const int argc, const char* argv[]) {
     // Fetch the results
     pQueryResult = mysql_store_result(pMysql);
     numFields = mysql_field_count(pMysql);                     // And get the field count
-    while (!(row = mysql_fetch_row(pQueryResult))) {                                       // We got nothing back; that may be OK
+    if (!(row = mysql_fetch_row(pQueryResult))) {                                       // We got nothing back; that may be OK
         cout << "!pQueryResult" << endl;
         if (numFields == 0) {                                    // We should have nothing back!
             cerr << argv[0] << ": Information: Query \"" << QUERY << "\" returned zero rows" << endl;
@@ -199,7 +199,7 @@ int main(const int argc, const char* argv[]) {
             return -1;
         }
     }
-    /*else {*/                                           // Retrieve the rows
+    else {                                           // Retrieve the rows
         cout << "Database ";
         cout << argv[2] << " : ";
         if (argc == 5) {
@@ -227,7 +227,7 @@ int main(const int argc, const char* argv[]) {
             printf("\n");
         }
         cout << "--------------------------------------------------" << endl;
-    /*}*/
+    }
     mysql_free_result(pQueryResult);
     mysql_close(pMysql);
 
