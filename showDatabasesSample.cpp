@@ -213,8 +213,9 @@ int main(const int argc, const char* argv[]) {
         while ((row = mysql_fetch_row(pQueryResult))) {
             unsigned long* lengths;
             lengths = mysql_fetch_lengths(pQueryResult);
-            for (int i = 0; i < numFields; i++)
-                printf("%.*s \t #", (int)lengths[i], row[i] ? row[i] : "NULL");
+            printf("%.*s \t\t\t", (int)lengths[0], row[0] ? row[0] : "NULL");
+            printf("%.*s \t\t", (int)lengths[2], row[2] ? row[2] : "NULL");
+            printf("%.*s", (int)lengths[1], row[1] ? row[1] : "NULL");
             printf("\n");
         }
         cout << "--------------------------------------------------" << endl;
