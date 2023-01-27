@@ -214,13 +214,13 @@ int main(const int argc, const char* argv[]) {
             unsigned long* lengths;
             lengths = mysql_fetch_lengths(pQueryResult);
             if(strlen(row[0]) < 8){
-                printf("%.*s \t\t\t#1", (int)lengths[0], row[0] ? row[0] : "NULL");
+                printf("%.*s \t\t\t", (int)lengths[0], row[0] ? row[0] : "NULL");
             }
             else if(strlen(row[0]) >= 16){
-                printf("%.*s \t#2", (int)lengths[0], row[0] ? row[0] : "NULL");
+                printf("%.*s \t", (int)lengths[0], row[0] ? row[0] : "NULL");
             }
             else{
-                printf("%.*s \t\t#3", (int)lengths[0], row[0] ? row[0] : "NULL");
+                printf("%.*s \t\t", (int)lengths[0], row[0] ? row[0] : "NULL");
             }
             printf("%.*s \t\t", (int)lengths[2], row[2] ? row[2] : "NULL");
             printf("%.*s", (int)lengths[1], row[1] ? row[1] : "NULL");
