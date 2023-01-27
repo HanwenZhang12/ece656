@@ -62,7 +62,7 @@ int main(const int argc, const char* argv[]) {
 
     const int bufLen = 256;
 
-    MYSQL_RES* pQueryResult;                                  // Pointer to query result handler
+    MYSQL_RES* pQueryResult = nullptr;                                  // Pointer to query result handler
     MYSQL_ROW  row;                                           // Space for result row
     int numFields;                                            // Number of fields in query
 
@@ -199,8 +199,7 @@ int main(const int argc, const char* argv[]) {
             return -1;
         }
     }
-    else {         
-        cout << pQueryResult << "\t" << !pQueryResult << "\t" << &pQueryResult << endl;                                           // Retrieve the rows
+    else {                                           // Retrieve the rows
         cout << "Database ";
         cout << argv[2] << " : ";
         if (argc == 5) {
