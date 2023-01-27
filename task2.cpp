@@ -210,6 +210,20 @@ int main(const int argc, const char* argv[]) {
         }
         cout << endl << "--------------------------------------------------" << endl;
         cout << "Table Name\t\t" << "TableType\t\t" << "Num of Cols" <<endl;
+        unsigned long* lengths;
+        lengths = mysql_fetch_lengths(pQueryResult);
+        if(strlen(row[0]) < 8){
+            printf("%.*s \t\t\t", (int)lengths[0], row[0] ? row[0] : "NULL");
+        }
+        else if(strlen(row[0]) >= 16){
+            printf("%.*s \t", (int)lengths[0], row[0] ? row[0] : "NULL");
+        }
+        else{
+            printf("%.*s \t\t", (int)lengths[0], row[0] ? row[0] : "NULL");
+        }
+        printf("%.*s \t\t", (int)lengths[2], row[2] ? row[2] : "NULL");
+        printf("%.*s", (int)lengths[1], row[1] ? row[1] : "NULL");
+        printf("\n");
         while (row = mysql_fetch_row(pQueryResult)) {
             unsigned long* lengths;
             lengths = mysql_fetch_lengths(pQueryResult);
