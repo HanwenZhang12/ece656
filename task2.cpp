@@ -199,7 +199,8 @@ int main(const int argc, const char* argv[]) {
             return -1;
         }
     }
-    else {                                                    // Retrieve the rows
+    else {         
+        cout << pQueryResult <<endl;                                           // Retrieve the rows
         cout << "Database ";
         cout << argv[2] << " : ";
         if (argc == 5) {
