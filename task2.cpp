@@ -199,7 +199,7 @@ int main(const int argc, const char* argv[]) {
             return -1;
         }
     }
-    else {                                           // Retrieve the rows
+    /*else {*/                                           // Retrieve the rows
         cout << "Database ";
         cout << argv[2] << " : ";
         if (argc == 5) {
@@ -227,7 +227,7 @@ int main(const int argc, const char* argv[]) {
             printf("\n");
         }
         cout << "--------------------------------------------------" << endl;
-    }
+    /*}*/
     mysql_free_result(pQueryResult);
     mysql_close(pMysql);
 
