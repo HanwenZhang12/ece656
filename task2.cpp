@@ -200,7 +200,7 @@ int main(const int argc, const char* argv[]) {
         }
     }
     else {         
-        cout << pQueryResult <<endl;                                           // Retrieve the rows
+        cout << pQueryResult << "\t" << !pQueryResult << "\t" << &pQueryResult << <<endl;                                           // Retrieve the rows
         cout << "Database ";
         cout << argv[2] << " : ";
         if (argc == 5) {
