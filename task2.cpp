@@ -62,7 +62,7 @@ int main(const int argc, const char* argv[]) {
 
     const int bufLen = 256;
 
-    MYSQL_RES* pQueryResult = nullptr;                                  // Pointer to query result handler
+    MYSQL_RES* pQueryResult;                                  // Pointer to query result handler
     MYSQL_ROW  row;                                           // Space for result row
     int numFields;                                            // Number of fields in query
 
@@ -188,7 +188,7 @@ int main(const int argc, const char* argv[]) {
     // Fetch the results
     pQueryResult = mysql_store_result(pMysql);
     numFields = mysql_field_count(pMysql);                     // And get the field count
-    if (pQueryResult == nullptr) {                                       // We got nothing back; that may be OK
+    if (mysql_fetch_lengths(pQueryResult) == NULL) {                                       // We got nothing back; that may be OK
         cout << "!pQueryResult" << endl;
         if (numFields == 0) {                                    // We should have nothing back!
             cerr << argv[0] << ": Information: Query \"" << QUERY << "\" returned zero rows" << endl;
