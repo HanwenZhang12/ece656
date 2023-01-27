@@ -24,7 +24,7 @@ CXXDEBUG = -g -Wall
 CFLAGS = $(CDEBUG) $(CSTD) 
 CXXFLAGS = $(CXXDEBUG) $(MYSQL_CXXFLAGS)
 
-TARGET = showDatabasesSample
+TARGET = task2
 
 # Filenames with extensions; CPP_SRCS does NOT include the target source file
 # If you have ZERO additional CPP_SRCS files you will need to removed CPP_OBJS
