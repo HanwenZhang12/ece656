@@ -401,8 +401,8 @@ insert into RelationshipSets values
 insert into Role values
             ('GamePlaysPlayers', 'TeamInfo', 'teamFor'), 
             ('GamePlaysPlayers', 'TeamInfo', 'teamAgainst'),
-            ('GamePlaysPlayers2', 'TeamInfo', 'teamFor'), 
-            ('GamePlaysPlayers2', 'TeamInfo', 'teamAgainst'); 
+            ('GamePlaysPlayers2', 'TeamInfo', 'teamFor2'), 
+            ('GamePlaysPlayers2', 'TeamInfo', 'teamAgainst2'); 
 
 -- And finish with the attributes
 
