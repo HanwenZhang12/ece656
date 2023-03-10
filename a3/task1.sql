@@ -372,10 +372,10 @@ insert into EntitySets values
             ('Game', 'gameID'),
             ('TeamInfo', 'teamID'),
             ('PlayerInfo', 'playerID'),
-            ('GamePlays', 'playID'),
-            ('NonExecutablePlays', 'playID'),
-            ('ExecutablePlays', 'playID'),
-            ('OfficialChallenge', 'playID'); 
+            ('GamePlays', 'playNumber'),
+            ('NonExecutablePlays', 'playNumber'),
+            ('ExecutablePlays', 'playNumber'),
+            ('OfficialChallenge', 'playNumber'); 
                                            
 insert into WeakEntitySets values
             ('GamePlays', 'Game', 'playNumber');
@@ -441,7 +441,7 @@ insert into Attributes values
             ('weight', 'PlayerInfo', false, 11),
             ('shootsCatches', 'PlayerInfo', false, 12),
             
-            ('playID',    'GamePlays', false, 1),
+            ('playNumber',    'GamePlays', false, 1),
             ('dateTime',      'GamePlays', false, 2),
             ('period',        'GamePlays', false, 3),
             ('type',          'GamePlays', false, 4),
@@ -450,16 +450,16 @@ insert into Attributes values
             ('timeRemaining', 'GamePlays', false, 7),
             ('description',   'GamePlays', false, 8),
             
-            ('playID',   'NonExecutablePlays', false, 1),
+            ('playNumber',   'NonExecutablePlays', false, 1),
             ('gameType',   'NonExecutablePlays', false, 2),
             
-            ('playID',   'ExecutablePlays', false, 1),
+            ('playNumber',   'ExecutablePlays', false, 1),
             ('teamIDfor',   'ExecutablePlays', false, 2),
             ('teamIDagainst',   'ExecutablePlays', false, 3),
             ('x',   'ExecutablePlays', false, 4),
             ('y',   'ExecutablePlays', false, 5),
             
-            ('playID',   'OfficialChallenge', false, 1),
+            ('playNumber',   'OfficialChallenge', false, 1),
             ('gameType',   'OfficialChallenge', false, 2),
             ('teamIDfor',   'OfficialChallenge', false, 3),
             ('teamIDagainst',   'OfficialChallenge', false, 4);

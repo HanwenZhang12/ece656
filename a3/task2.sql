@@ -41,7 +41,7 @@ select '------------------------------------------------------------------------
 select 'Create GamePlays' as '';
 
 create table GamePlays (
-	playID varchar(45),
+	playNumber varchar(45),
     gameID varchar(20),
     period varchar(10) not null,
     periodType varchar(20) not null,
@@ -49,7 +49,7 @@ create table GamePlays (
 	periodTimeRemaining int not null,
     dateTime datetime not null,
     description varchar(100) not null,
-    primary key (playID),
+    primary key (playNumber),
 	foreign key (gameID) references Game (gameID)
 );
 
@@ -57,7 +57,7 @@ select '------------------------------------------------------------------------
 select 'Create GameGoals' as '';
 
 create table GameGoals (
-	playID varchar(45),
+	playNumber varchar(45),
     playType varchar(20) not null,
     secondaryType varchar(20),
     goalsAway varchar(10) not null,
@@ -65,21 +65,21 @@ create table GameGoals (
     strength varchar(20) not null,
 	gameWinningGoal bool not null,
 	emptyNet bool not null,
-    primary key (playID),
-    foreign key (playID) references GamePlays (playID)
+    primary key (playNumber),
+    foreign key (playNumber) references GamePlays (playNumber)
 );
 
 select '---------------------------------------------------------------------------------------' as '';
 select 'Create GamePenalties' as '';
 
 create table GamePenalties (
-	playID varchar(45),
+	playNumber varchar(45),
 	playType varchar(20) not null,
     secondaryType varchar(20),
     penaltySeverity varchar(20) not null,
     penaltyMinutes int not null,
-	primary key (playID),
-	foreign key (playID) references GamePlays (playID)
+	primary key (playNumber),
+	foreign key (playNumber) references GamePlays (playNumber)
 );
 
 select '---------------------------------------------------------------------------------------' as '';
@@ -115,23 +115,23 @@ select '------------------------------------------------------------------------
 select 'Create NEP' as '';
 
 create table NonExecutablePlays (
-	playID varchar(45),
+	playNumber varchar(45),
 	gameType varchar(20) not null,
-    primary key (playID),
-    foreign key (playID) references GamePlays(playID)
+    primary key (playNumber),
+    foreign key (playNumber) references GamePlays(playNumber)
 );
 
 select '---------------------------------------------------------------------------------------' as '';
 select 'Create EP' as '';
 
 create table ExecutablePlays (
-	playID varchar(45),
+	playNumber varchar(45),
     teamIDfor int,
     teamIDagainst int,
     x int not null,
     y int not null,
-    primary key (playID),
-    foreign key (playID) references GamePlays(playID),
+    primary key (playNumber),
+    foreign key (playNumber) references GamePlays(playNumber),
     foreign key (teamIDfor) references TeamInfo(teamID),
     foreign key (teamIDagainst) references TeamInfo(teamID)
 );
@@ -140,24 +140,24 @@ select '------------------------------------------------------------------------
 select 'Create OC' as '';
 
 create table OfficialChallenge (
-	playID varchar(45),
+	playNumber varchar(45),
 	gameType varchar(20) not null,
     teamIDfor int,
     teamIDagainst int,
-    primary key (playID),
-    foreign key (playID) references GamePlays(playID)
+    primary key (playNumber),
+    foreign key (playNumber) references GamePlays(playNumber)
 );
 
 select '---------------------------------------------------------------------------------------' as '';
 select 'Create GamePlayPlayers' as '';
 
 create table GamePlaysPlayers (
-	playID varchar(45),
+	playNumber varchar(45),
     gameID varchar(20),
     playerID varchar(20),
     playerRole varchar(20) not null,
-    primary key (playID, gameID, playerID),
-    foreign key (playID) references ExecutablePlays(playID),
+    primary key (playNumber, gameID, playerID),
+    foreign key (playNumber) references ExecutablePlays(playNumber),
     foreign key (gameID) references Game(gameID),
 	foreign key (playerID) references PlayerInfo(playerID)
 );
@@ -166,12 +166,12 @@ select '------------------------------------------------------------------------
 select 'Create GamePlayPlayers2' as '';
 
 create table GamePlaysPlayers2 (
-	playID varchar(45),
+	playNumber varchar(45),
     gameID varchar(20),
     playerID varchar(20),
     playerRole varchar(20) not null,
-    primary key (playID, gameID, playerID),
-    foreign key (playID) references OfficialChallenge(playID),
+    primary key (playNumber, gameID, playerID),
+    foreign key (playNumber) references OfficialChallenge(playNumber),
     foreign key (gameID) references Game(gameID),
 	foreign key (playerID) references PlayerInfo(playerID)
 );
@@ -180,11 +180,11 @@ select '------------------------------------------------------------------------
 select 'Create GameShots' as '';
 
 create table GameShots (
-	playID varchar(45),
+	playNumber varchar(45),
 	playType varchar(20) not null,
     secondaryType varchar(20),
-	primary key (playID),
-	foreign key (playID) references GamePlays (playID)
+	primary key (playNumber),
+	foreign key (playNumber) references GamePlays (playNumber)
 );
 
 DROP TRIGGER IF EXISTS checker;
