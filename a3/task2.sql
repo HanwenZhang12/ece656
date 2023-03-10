@@ -157,7 +157,8 @@ create table GamePlaysPlayers (
     playerID varchar(20),
     playerRole varchar(20) not null,
     primary key (playID, gameID, playerID),
-    foreign key (playID, gameID) references ExecutablePlays(playID, gameID),
+    foreign key (playID) references ExecutablePlays(playID),
+    foreign key (gameID) references Game(gameID),
 	foreign key (playerID) references PlayerInfo(playerID)
 );
 
@@ -170,7 +171,8 @@ create table GamePlaysPlayers2 (
     playerID varchar(20),
     playerRole varchar(20) not null,
     primary key (playID, gameID, playerID),
-    foreign key (playID, gameID) references OfficialChallenge(playID, gameID),
+    foreign key (playID) references OfficialChallenge(playID),
+    foreign key (gameID) references Game(gameID),
 	foreign key (playerID) references PlayerInfo(playerID)
 );
 
