@@ -407,21 +407,69 @@ insert into Role values
 -- And finish with the attributes
 
 insert into Attributes values
-            ('playNumber',    'GamePlays', false, 1),
-            ('dateTime',      'GamePlays', false, 2),
-            ('period',        'GamePlays', false, 6),
-            ('type',          'GamePlays', false, 7),
-            ('number',        'GamePlays', false, 8),
-            ('time',          'GamePlays', false, 9),
-            ('timeRemaining', 'GamePlays', false, 10),
-            ('description',   'GamePlays', false, 17),
-            
             ('gameID',   'Game',       false, 1),
-            ('gameType', 'Game',       false, 2),
+            ('season', 'Game',       false, 2),
+            ('gameType', 'Game',       false, 3),
+            ('dateTimeGMT', 'Game',       false, 4),
+            ('awayTeamID', 'Game',       false, 5),
+            ('homeTeamID', 'Game',       false, 6),
+            ('awayGoals', 'Game',       false, 7),
+            ('homeGoals', 'Game',       false, 8),
+            ('outcome', 'Game',       false, 9),
+            ('homeRinkSideStart', 'Game',       false, 10),
+            ('venue', 'Game',       false, 11),
+            ('type', 'Game',       false, 12),
+            ('venueTimeZoneID', 'Game',       false, 13),
+            ('venueTimeZoneOffset', 'Game',       false, 14),
+            ('venueTimeZoneTZ', 'Game',       false, 15),
             
             ('teamID',   'TeamInfo',   false, 1),
+            ('franchiseID',   'TeamInfo',   false, 2),
+            ('city',   'TeamInfo',   false, 3),
+            ('name',   'TeamInfo',   false, 4),
+            ('abbreviation',   'TeamInfo',   false, 5),
             
-            ('playerID', 'PlayerInfo', false, 1);
+            ('playerID', 'PlayerInfo', false, 1),
+            ('firstName', 'PlayerInfo', false, 2),
+            ('lastName', 'PlayerInfo', false, 3),
+            ('nationality', 'PlayerInfo', false, 4),
+            ('birthCity', 'PlayerInfo', false, 5),
+            ('primaryPosition', 'PlayerInfo', false, 6),
+            ('birthDate', 'PlayerInfo', false, 7),
+            ('birthStateProvince', 'PlayerInfo', false, 8),
+            ('height', 'PlayerInfo', false, 9),
+            ('heightInCM', 'PlayerInfo', false, 10),
+            ('weight', 'PlayerInfo', false, 11),
+            ('shootsCatches', 'PlayerInfo', false, 12),
+            
+            ('playID',    'GamePlays', false, 1),
+            ('dateTime',      'GamePlays', false, 2),
+            ('period',        'GamePlays', false, 3),
+            ('type',          'GamePlays', false, 4),
+            ('number',        'GamePlays', false, 5),
+            ('time',          'GamePlays', false, 6),
+            ('timeRemaining', 'GamePlays', false, 7),
+            ('description',   'GamePlays', false, 8),
+            
+            ('playID',   'NonExecutablePlays', false, 1),
+            ('gameType',   'NonExecutablePlays', false, 2),
+            
+            ('playID',   'ExecutablePlays', false, 1),
+            ('teamIDfor',   'ExecutablePlays', false, 2),
+            ('teamIDagainst',   'ExecutablePlays', false, 3),
+            ('x',   'ExecutablePlays', false, 4),
+            ('y',   'ExecutablePlays', false, 5),
+            
+            ('playID',   'OfficialChallenge', false, 1),
+            ('gameType',   'OfficialChallenge', false, 2),
+            ('teamIDfor',   'OfficialChallenge', false, 3),
+            ('teamIDagainst',   'OfficialChallenge', false, 4);
+            
+insert into ComponentAttributes values
+            ('type',       12, 'venue',      11),
+            ('venueTimeZoneID',      13, 'venue',      11),
+            ('venueTimeZoneOffset',           14, 'venue',    11),
+            ('venueTimeZoneTZ',         15, 'venue',    11);
             
 insert into RelationshipAttributes values
             ('playerRole', 'GamePlaysPlayers', true, 1),
