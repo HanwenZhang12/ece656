@@ -364,8 +364,7 @@ end; @@
 delimiter ;
 
 -- ----------------- END OF TRIGGER CODE ---------------------------------------
-select '---------------------------------------------------------------------------------------' as '';
-select 'Query Start' as '';
+
 -- ----------------- START OF GamePlays ER Model INSERT STATEMENTS -------------
 -- Populate entity sets first
 
@@ -476,9 +475,6 @@ insert into RelationshipAttributes values
             ('playerRole', 'GamePlaysPlayers2', true, 1);
 
 -- ----------------- END OF GamePlays ER Model INSERT STATEMENTS ---------------
-
-select '---------------------------------------------------------------------------------------' as '';
-select 'Query End' as '';
 
 -- ----------------- ADD FINAL FOREIGN KEYS ------------------------------------
 
