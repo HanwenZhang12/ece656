@@ -23,7 +23,7 @@ create table Game (
 		or (gameType = 'P' and substring(gameID, 5, 2) = '03') 
 		or (gameType = 'A' and substring(gameID, 5, 2) = '04')
         or (gameType = 'R' and substring(gameID, 5, 2) = '03' and dateTimeGMT between '2020-08-01 00:00:00' and '2020-08-31 23:59:59')
-    )*/check((gameType='R' AND SUBSTRING(gameID, 5, 2) = 2)  OR (gameType='P' AND SUBSTRING(gameID, 5, 2) = 3) OR (gameType='A' AND SUBSTRING(gameID, 5, 2) = 4)) not null,
+    )*/ not null,
 	dateTimeGMT datetime not null,
     awayTeamID int not null,
     homeTeamID int not null,
