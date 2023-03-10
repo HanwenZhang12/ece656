@@ -12,6 +12,9 @@ drop table if exists ExecutablePlays;
 drop table if exists OfficialChallenge;
 drop table if exists GameShots;
 
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create Game' as '';
+
 create table Game (
 	gameID varchar(20) primary key check(
 		(gameType = 'R' and substring(gameID, 5, 2) = '02') 
@@ -34,6 +37,9 @@ create table Game (
 	venueTimeZoneTZ varchar(10) not null
 );
 
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create GameGoals' as '';
+
 create table GameGoals (
 	playID varchar(45),
     playType varchar(20) not null,
@@ -47,6 +53,9 @@ create table GameGoals (
     foreign key (playID) references GamePlays (playID)
 );
 
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create GamePenalties' as '';
+
 create table GamePenalties (
 	playID varchar(45),
 	playType varchar(20) not null,
@@ -56,6 +65,9 @@ create table GamePenalties (
 	primary key (playID),
 	foreign key (playID) references GamePlays (playID)
 );
+
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create GamePlays' as '';
 
 create table GamePlays (
 	playID varchar(45),
@@ -70,6 +82,9 @@ create table GamePlays (
 	foreign key (gameID) references Game (gameID)
 );
 
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create GamePlayPlayers' as '';
+
 create table GamePlaysPlayers (
 	playID varchar(45),
     gameID varchar(20),
@@ -80,6 +95,9 @@ create table GamePlaysPlayers (
 	foreign key (playerID) references PlayerInfo(playerID)
 );
 
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create GamePlayPlayers2' as '';
+
 create table GamePlaysPlayers2 (
 	playID varchar(45),
     gameID varchar(20),
@@ -89,6 +107,9 @@ create table GamePlaysPlayers2 (
     foreign key (playID, gameID) references OfficialChallenge(gameID, playNumber),
 	foreign key (playerID) references PlayerInfo(playerID)
 );
+
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create PlayerInfo' as '';
 
 create table PlayerInfo (
 	playerID varchar(20) primary key,
@@ -105,6 +126,9 @@ create table PlayerInfo (
 	shootsCatches varchar(10) not null
 );
 
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create TeamInfo' as '';
+
 create table TeamInfo (
 	teamID int primary key,
 	franchiseID int not null,
@@ -113,12 +137,18 @@ create table TeamInfo (
 	abbreviation varchar(10) not null
 );
 
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create NEP' as '';
+
 create table NonExecutablePlays (
 	playID varchar(45),
 	gameType varchar(20) not null,
     primary key (playID),
     foreign key (playID) references GamePlays(playID)
 );
+
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create EP' as '';
 
 create table ExecutablePlays (
 	playID varchar(45),
@@ -132,6 +162,9 @@ create table ExecutablePlays (
     foreign key (teamIDagainst) references TeamInfo(teamID)
 );
 
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create OC' as '';
+
 create table OfficialChallenge (
 	playID varchar(45),
 	gameType varchar(20) not null,
@@ -141,6 +174,9 @@ create table OfficialChallenge (
     foreign key (playID) references GamePlays(playID)
 );
 
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create GameShots' as '';
+
 create table GameShots (
 	playID varchar(45),
 	playType varchar(20) not null,
@@ -149,7 +185,10 @@ create table GameShots (
 	foreign key (playID) references GamePlays (playID)
 );
 
-DROP TRIGGER IF EXISTS `anr`.`admin_AFTER_INSERT`;
+DROP TRIGGER IF EXISTS checker;
+
+select '---------------------------------------------------------------------------------------' as '';
+select 'Create Trigger' as '';
 
 DELIMITER $$
 CREATE TRIGGER checker AFTER INSERT ON Game FOR EACH ROW
