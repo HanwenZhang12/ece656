@@ -373,16 +373,15 @@ insert into EntitySets values
             ('Game', 'gameID'),
             ('TeamInfo', 'teamID'),
             ('PlayerInfo', 'playerID'),
-            ('GamePlays', 'gameID'),       -- Primary key for GamePlays is
-            ('GamePlays', 'playNumber');   -- gameID and playNumber
+            ('GamePlays', 'playID'),
+            ('NonExecutablePlays', 'playID'),
+            ('ExecutablePlays', 'playID'),
+            ('OfficialChallenges', 'playID'); 
                                            
 insert into WeakEntitySets values
             ('GamePlays', 'Game', 'playNumber');
 
 insert into IsA values
-			('NonExecutablePlays', 'GamePlays', true, true),
-            ('ExecutablePlays', 'GamePlays', true, true),
-            ('OfficialChallenges', 'GamePlays', true, true),
             ('GameShots', 'ExecutablePlays', true, false),
             ('GamePenalties', 'ExecutablePlays', true, false),
             ('GameGoals', 'ExecutablePlays', true, false);
