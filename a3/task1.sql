@@ -376,7 +376,7 @@ insert into EntitySets values
             ('GamePlays', 'playID'),
             ('NonExecutablePlays', 'playID'),
             ('ExecutablePlays', 'playID'),
-            ('OfficialChallenges', 'playID'); 
+            ('OfficialChallenge', 'playID'); 
                                            
 insert into WeakEntitySets values
             ('GamePlays', 'Game', 'playNumber');
@@ -394,7 +394,7 @@ insert into RelationshipSets values
             ('GamePlaysPlayers', 'TeamInfo', '0', '*'),
             ('GamePlaysPlayers', 'PlayerInfo', '0', '*'),
             ('GamePlaysPlayers2', 'Game', '0', '*'),
-            ('GamePlaysPlayers2', 'OfficialChallenges', '0', '1'),
+            ('GamePlaysPlayers2', 'OfficialChallenge', '0', '1'),
             ('GamePlaysPlayers2', 'TeamInfo', '0', '*'),
             ('GamePlaysPlayers2', 'PlayerInfo', '0', '*');
 
