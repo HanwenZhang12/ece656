@@ -16,14 +16,14 @@ select '------------------------------------------------------------------------
 select 'Create Game' as '';
 
 create table Game (
-	gameID varchar(20) primary key check(
+	gameID varchar(20) primary key,
+	season int check(season % 10000 - 1 = (season div 10000)) not null,
+	gameType varchar(10) check(
 		(gameType = 'R' and substring(gameID, 5, 2) = '02') 
 		or (gameType = 'P' and substring(gameID, 5, 2) = '03') 
 		or (gameType = 'A' and substring(gameID, 5, 2) = '04')
         or (gameType = 'R' and substring(gameID, 5, 2) = '03' and dateTimeGMT between '2020-08-01 00:00:00' and '2020-08-31 23:59:59')
-    ),
-	season int check(season%10000-1 = (season div 10000)) not null,
-	gameType varchar(10) not null,
+    ) not null,
 	dateTimeGMT datetime not null,
     awayTeamID int not null,
     homeTeamID int not null,
