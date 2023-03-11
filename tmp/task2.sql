@@ -133,6 +133,7 @@ create table GamePlaysPlayers2 (
        	     	teamID decimal(10),
 -- Additional Constraints
                 primary key(playNumber),
+                primary key(teamID),
                 foreign key(playNumber) references GameChallenges(playNumber),
                 foreign key(teamID) references TeamInfo(teamID)
 			      );
