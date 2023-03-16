@@ -1,6 +1,4 @@
 alter table GamePlays 
-drop column periodTimeRemaining,
-drop column periodTime,
 drop column periodType,
 change column period periodNumber VARCHAR(10) NOT NULL;
 
