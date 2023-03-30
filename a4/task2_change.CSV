@@ -1,0 +1,2 @@
+PK to FK,table gameplaysplayers was table scanned and is now index scanned.,The actual time of Filter: (GamePlaysPlayers.playerRole = \'PenaltyOn\') is lower.
+Plain to PK,The actual time of Table scan on GamePlaysPlayers is larger.,The actual time of Filter: (GamePlaysPlayers.playerRole = \'PenaltyOn\') is larger.

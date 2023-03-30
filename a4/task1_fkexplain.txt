@@ -1,0 +1,13 @@
++----+-------------+------------------+------------+-------+------------------+-------------+---------+-------------------------------------------------------------+---------+----------+-----------------+
+| id | select_type | table            | partitions | type  | possible_keys    | key         | key_len | ref                                                         | rows    | filtered | Extra           |
++----+-------------+------------------+------------+-------+------------------+-------------+---------+-------------------------------------------------------------+---------+----------+-----------------+
+|  1 | PRIMARY     | PlayerInfo       | NULL       | ALL   | PRIMARY          | NULL        | NULL    | NULL                                                        |    3914 |   100.00 | NULL            |
+|  1 | PRIMARY     | <derived3>       | NULL       | ref   | <auto_key0>      | <auto_key0> | 4       | NHL_FK.PlayerInfo.playerID                                  |      10 |   100.00 | NULL            |
+|  1 | PRIMARY     | <derived4>       | NULL       | ref   | <auto_key0>      | <auto_key0> | 4       | NHL_FK.PlayerInfo.playerID                                  |     145 |   100.00 | Using where     |
+|  5 | SUBQUERY    | <derived3>       | NULL       | ALL   | NULL             | NULL        | NULL    | NULL                                                        |   42917 |   100.00 | NULL            |
+|  5 | SUBQUERY    | <derived4>       | NULL       | ref   | <auto_key0>      | <auto_key0> | 4       | PenaltyMinutes.playerID                                     |      13 |   100.00 | NULL            |
+|  4 | DERIVED     | GamePlaysPlayers | NULL       | index | PRIMARY,playerID | playerID    | 4       | NULL                                                        | 5675370 |    10.00 | Using where     |
+|  3 | DERIVED     | GamePenalties    | NULL       | ALL   | PRIMARY          | NULL        | NULL    | NULL                                                        |  229439 |   100.00 | Using temporary |
+|  3 | DERIVED     | GamePlaysPlayers | NULL       | ref   | PRIMARY,playerID | PRIMARY     | 9       | NHL_FK.GamePenalties.gameID,NHL_FK.GamePenalties.playNumber |       1 |    10.00 | Using where     |
++----+-------------+------------------+------------+-------+------------------+-------------+---------+-------------------------------------------------------------+---------+----------+-----------------+
+8 rows in set, 1 warning (0.01 sec)

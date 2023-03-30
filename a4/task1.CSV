@@ -1,0 +1,19 @@
+1a,"analyze table GamePenalties update histogram on gameID, penaltyMinutes, playNumber;	",
+1b,"analyze table GamePlaysPlayers update histogram on gameID, playNumber, playerRole, playerID;	",
+1c,"analyze table PlayerInfo update histogram on playerID, firstName, lastName;	",
+2a,"tablescan	",
+2b,index lookup,<auto_key0>
+2c,index lookup,<auto_key0>
+2d,"tablescan	",
+2e,index lookup,<auto_key0>
+2f,index scan,playerID
+2g,"tablescan	",
+2i,index lookup,PRIMARY
+3a,"tablescan	",
+3b,index lookup,PRIMARY
+3c,index lookup,<auto_key0>
+3d,"tablescan	",
+3e,index lookup,<auto_key0>
+3f,index scan,playerID
+3g,"tablescan	",
+3i,index lookup,PRIMARY
